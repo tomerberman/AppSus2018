@@ -1,7 +1,8 @@
 import emailList from '../cmps/email/email-list-cmp.js';
 import emailDetails from '../cmps/email/email-details-cmp.js';
 import emailStatus from '../cmps/email/email-status-cmp.js';
-
+import emailService from '../services/email-service.js';
+import emailListItems from '../cmps/email/email-list-item-preview-cmp.js';
 
 
 // Vue.component('say-hello', {
@@ -12,8 +13,8 @@ export default {
     template:`
         <div class="outer-container">
             <div class="inner-container flex">
-               <email-list></email-list>
-               <email-details></email-details>
+               <email-list @emailSelected="selectEmail"  :emails="emails"></email-list>
+               <email-details v-if="selectedEmail" :email="selectedEmail"></email-details>
             </div>
             <email-status></email-status>
         </div>
@@ -28,23 +29,43 @@ export default {
 
     data() {
         return {
-            currView : 'user-profile',
-            
-            cmps: [
-                {cmpType: 'say-hello', data: {greet : 'Ahalan'}},
-                {cmpType: 'user-profile', data: {user : {email: 'bo@bob.com'} } },
-                {cmpType: 'say-hello', data: {greet : 'Marhaba!'}},
+            emails : null,
+            selectedEmail : null,
+            id : null,
+        };
 
-            ]
-        }
+        // currView : 'user-profile',
+            
+        //     cmps: [
+        //         {cmpType: 'say-hello', data: {greet : 'Ahalan'}},
+        //         {cmpType: 'user-profile', data: {user : {email: 'bo@bob.com'} } },
+        //         {cmpType: 'say-hello', data: {greet : 'Marhaba!'}},
+
+        //     ]
+        // }
     },
+
+    created () {
+        emailService.getEmails().then((res) => {
+            this.emails = res;
+            console.log('emails array =',this.emails);
+            this.selectedEmail = this.emails[0];
+        });
+    },
+
     methods: {
+
+        selectEmail(id){
+            console.log('this.selectedEmail =',this.selectedEmail);
+            this.selectedEmail = emailService.getEmailById(id);
+        },
+
         changeCmp() {
             this.currView = (this.currView === 'say-hello')? 'user-profile' : 'say-hello'
         }
     },
     components: {
-
+        emailListItems,
         emailList,
         emailDetails,
         emailStatus,

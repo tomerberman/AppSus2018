@@ -4,7 +4,7 @@
 
 div {
     margin: 0px;
-    padding: 5px;
+    padding: 8px;
 }
 
 /* ================== HELPERS ================== */
@@ -21,6 +21,7 @@ div {
 
 .outer-container {
     display: block !important;
+    max-height: 500px;
 }
 
 .email-list {
@@ -35,12 +36,19 @@ div {
     background-color: slategray;
     display: inline-flex;
     justify-content: space-between;
-    /* width: 40%; */
 }
 
 .list-item-container {
     background-color: wheat;
     width: 250px;
+    height: 4em;
+    padding: 0;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.list-item-container:hover {
+    filter: invert(1);
 }
 
 .list-item-icon {
@@ -52,6 +60,11 @@ div {
     background-color: cornflowerblue;
     display: inline-block;
     width: 100%;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 0.95em;
+    line-height: 1em;
 }
 
 .list-item-status {
@@ -63,15 +76,20 @@ div {
 
 .details-container {
     background-color: yellowgreen;
-    /* width: 60%; */
 }
 
 .details-top {
     background-color: chocolate;
+    cursor: pointer;
+}
+
+.details-top:hover {
+    filter: invert(1);
 }
 
 .full-content {
     background-color: blanchedalmond;
+    height: 100%;
 }
 
 .email-status {
@@ -93,12 +111,14 @@ div {
     width: 100%;
     border: 1px black solid;
     background-color: azure;
+    padding: 0;
 }
 
 .progress-filling {
-    height: 100%;
-    width: 47%;
+    height: 20px;
+    width: 41%;
     background-color: #333;
+    padding: 0;
 }
 
 .progress-data {
