@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    margin: 0px;
+    padding: 5px;
+}
+
+/* ================== HELPERS ================== */
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+/* ============ END HELPERS ============== */
+
+.outer-container {
+    display: block !important;
+}
+
+.email-list {
+    background-color: green;
+}
+
+.inner-container {
+    justify-content: space-between;
+}
+
+.list-container {
+    background-color: slategray;
+    display: inline-flex;
+    justify-content: space-between;
+    /* width: 40%; */
+}
+
+.list-item-container {
+    background-color: wheat;
+    width: 250px;
+}
+
+.list-item-icon {
+    background-color: aqua;
+    display: inline-block;
+}
+
+.list-item {
+    background-color: cornflowerblue;
+    display: inline-block;
+    width: 100%;
+}
+
+.list-item-status {
+    background-color: blueviolet;
+    display: inline-block;
+
+
+}
+
+.details-container {
+    background-color: yellowgreen;
+    /* width: 60%; */
+}
+
+.details-top {
+    background-color: chocolate;
+}
+
+.full-content {
+    background-color: blanchedalmond;
+}
+
+.email-status {
+    background-color: darkcyan;
+}
+
+.status-container {
+    background-color: red;
+    justify-content: space-between;
+}
+
+.progress-container {
+    background-color: gray;
+    width: 100%;
+}
+
+.progress-empty {
+    height: 20px;
+    width: 100%;
+    border: 1px black solid;
+    background-color: azure;
+}
+
+.progress-filling {
+    height: 100%;
+    width: 47%;
+    background-color: #333;
+}
+
+.progress-data {
+    background-color: aqua;
+    width: 80px;
+}
