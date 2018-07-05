@@ -1,16 +1,24 @@
 import utilService from './util-service.js'
 import storageService from './storage-service.js'
-import eventBus, {USR_MSG_DISPLAY} from './event-bus.service.js'
+import eventBus, { USR_MSG_DISPLAY } from './event-bus.service.js'
 
-var notes = [];
-var NOTES_KEY = 'todosApp'
+var notes = [
+    { noteType: 'note-txt', isPinned: false, data: { title: 'note 2', txt: 'text for display 2' } },
+    { noteType: 'note-img', isPinned: false, data: { title: 'note imf 1', src: '../../../img/1.jpg' } },
+    { noteType: 'note-txt', isPinned: false, data: { title: 'note 1', txt: 'text for display 1' } },
+    { noteType: 'note-audio', isPinned: false, data: { title: 'note audio 1', src: '../../../sound/Kalimba.mp3' } }
+];
+var NOTES_KEY = 'notesApp'
 var notesFilter = 'All';
 
 
 export default {
-    
+    query
 }
 
+function query() {
+    return Promise.resolve(notes);
+}
 
 function createNotes() {
     notes = loadFromStorage(NOTES_KEY);
@@ -19,7 +27,7 @@ function createNotes() {
         notes.push(createNote('Learn Javascript'))
         notes.push(createNote('Play with HTML5'))
         notes.push(createNote('Master CSS'))
-    } 
+    }
 }
 
 function createNote(txt) {
@@ -30,40 +38,40 @@ function createNote(txt) {
     }
 }
 
-function addNote(todoTxt) {
-    var newTodo = createNote(todoTxt);
-    notes.unshift(newTodo);
-    saveTodos();
-    return Promise.resolve(newTodo);
+function addNote(noteTxt) {
+    var newNote = createNote(noteTxt);
+    notes.unshift(newNote);
+    saveNotes();
+    return Promise.resolve(newNote);
 }
 
 function deleteNote(id) {
-    var todoIdx = getNoteIdxById(id)
-    if (todoIdx === -1) return;
-    notes.splice(todoIdx, 1);
-    saveTodos();
+    var noteIdx = getNoteIdxById(id)
+    if (noteIdx === -1) return;
+    notes.splice(noteIdx, 1);
+    saveNotes();
     return Promise.resolve();
 
 }
 
 function toggleNote(id) {
-    var todo = getNoteById(id)
-    if (!todo) return;
-    todo.isDone = !todo.isDone;
-    saveTodos();
-    return Promise.resolve(todo);
+    var note = getNoteById(id)
+    if (!note) return;
+    note.isDone = !note.isDone;
+    saveNotes();
+    return Promise.resolve(note);
 
 }
 
 function getNoteById(id) {
-    var todo = notes.find(todo => todo.id === id);
-    return Promise.resolve(todo)
+    var note = notes.find(note => note.id === id);
+    return Promise.resolve(note)
 }
 
 function getNoteIdxById(id) {
     for (var i = 0; i < notes.length; i++) {
-        var todo = notes[i];
-        if (todo.id === id) return i;
+        var note = notes[i];
+        if (note.id === id) return i;
     }
     return -1;
 }
@@ -73,15 +81,15 @@ function setFilter(strFilter) {
 }
 
 function getNotesForDisplay() {
-    var todos = [];
-    todos.forEach(function (todo) {
+    var notes = [];
+    notes.forEach(function (note) {
         if (notesFilter === 'All' ||
-            (notesFilter === 'Active' && !todo.isDone) ||
-            (notesFilter === 'Done' && todo.isDone)) {
-            todos.push(todo);
+            (notesFilter === 'Active' && !note.isDone) ||
+            (notesFilter === 'Done' && note.isDone)) {
+            notes.push(note);
         }
     });
-    return Promise.resolve(todos);
+    return Promise.resolve(notes);
 }
 
 function getCount() {
@@ -90,12 +98,12 @@ function getCount() {
 
 function getActiveCount() {
     var activeCount = 0;
-    notes.forEach(function (todo) {
-        if (!todo.isDone) activeCount++;
+    notes.forEach(function (note) {
+        if (!note.isDone) activeCount++;
     })
     return activeCount;
 }
 
-function saveTodos() {
+function saveNotes() {
     saveToStorage(NOTES_KEY, notes);
 }
