@@ -1,10 +1,10 @@
-import utilService from './util.service.js'
-import storageService from './storage.service.js'
+import utilService from './util-service.js'
+import storageService from './storage-service.js'
 import eventBus, {USR_MSG_DISPLAY} from './event-bus.service.js'
 
-var todos = [];
-var TODOS_KEY = 'todosApp'
-var todosFilter = 'All';
+var notes = [];
+var NOTES_KEY = 'todosApp'
+var notesFilter = 'All';
 
 
 export default {
@@ -12,17 +12,17 @@ export default {
 }
 
 
-function createTodos() {
-    todos = loadFromStorage(TODOS_KEY);
-    if (!todos || todos.length === 0) {
-        todos = [];
-        todos.push(createTodo('Learn Javascript'))
-        todos.push(createTodo('Play with HTML5'))
-        todos.push(createTodo('Master CSS'))
+function createNotes() {
+    notes = loadFromStorage(NOTES_KEY);
+    if (!notes || notes.length === 0) {
+        notes = [];
+        notes.push(createNote('Learn Javascript'))
+        notes.push(createNote('Play with HTML5'))
+        notes.push(createNote('Master CSS'))
     } 
 }
 
-function createTodo(txt) {
+function createNote(txt) {
     return {
         id: makeId(),
         txt: txt,
@@ -30,24 +30,24 @@ function createTodo(txt) {
     }
 }
 
-function addTodo(todoTxt) {
-    var newTodo = createTodo(todoTxt);
-    todos.unshift(newTodo);
+function addNote(todoTxt) {
+    var newTodo = createNote(todoTxt);
+    notes.unshift(newTodo);
     saveTodos();
     return Promise.resolve(newTodo);
 }
 
-function deleteTodo(id) {
-    var todoIdx = getTodoIdxById(id)
+function deleteNote(id) {
+    var todoIdx = getNoteIdxById(id)
     if (todoIdx === -1) return;
-    todos.splice(todoIdx, 1);
+    notes.splice(todoIdx, 1);
     saveTodos();
     return Promise.resolve();
 
 }
 
-function toggleTodo(id) {
-    var todo = getTodoById(id)
+function toggleNote(id) {
+    var todo = getNoteById(id)
     if (!todo) return;
     todo.isDone = !todo.isDone;
     saveTodos();
@@ -55,29 +55,29 @@ function toggleTodo(id) {
 
 }
 
-function getTodoById(id) {
-    var todo = todos.find(todo => todo.id === id);
+function getNoteById(id) {
+    var todo = notes.find(todo => todo.id === id);
     return Promise.resolve(todo)
 }
 
-function getTodoIdxById(id) {
-    for (var i = 0; i < todos.length; i++) {
-        var todo = todos[i];
+function getNoteIdxById(id) {
+    for (var i = 0; i < notes.length; i++) {
+        var todo = notes[i];
         if (todo.id === id) return i;
     }
     return -1;
 }
 
 function setFilter(strFilter) {
-    todosFilter = strFilter;
+    notesFilter = strFilter;
 }
 
-function getTodosForDisplay() {
+function getNotesForDisplay() {
     var todos = [];
     todos.forEach(function (todo) {
-        if (todosFilter === 'All' ||
-            (todosFilter === 'Active' && !todo.isDone) ||
-            (todosFilter === 'Done' && todo.isDone)) {
+        if (notesFilter === 'All' ||
+            (notesFilter === 'Active' && !todo.isDone) ||
+            (notesFilter === 'Done' && todo.isDone)) {
             todos.push(todo);
         }
     });
@@ -85,17 +85,17 @@ function getTodosForDisplay() {
 }
 
 function getCount() {
-    return todos.length;
+    return notes.length;
 }
 
 function getActiveCount() {
     var activeCount = 0;
-    todos.forEach(function (todo) {
+    notes.forEach(function (todo) {
         if (!todo.isDone) activeCount++;
     })
     return activeCount;
 }
 
 function saveTodos() {
-    saveToStorage(TODOS_KEY, todos);
+    saveToStorage(NOTES_KEY, notes);
 }
