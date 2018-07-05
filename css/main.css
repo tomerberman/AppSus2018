@@ -2,6 +2,8 @@
 @import './helpers.css';
 @import './toggle-btn.css';
 @import './keep.css';
+@import './user-msg.css';
+@import './email.css';
 
 .gothic {
     font-family: 'Gothic';
