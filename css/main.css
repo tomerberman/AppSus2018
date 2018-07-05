@@ -5,6 +5,10 @@
 @import './user-msg.css';
 @import './email.css';
 
+img {
+    max-width: 100%;
+    height: auto;
+}
 .gothic {
     font-family: 'Gothic';
 }
