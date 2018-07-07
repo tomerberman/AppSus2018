@@ -1,30 +1,42 @@
-// import eventBus, {USR_MSG_DISPLAY} from '../services/event-bus.service.js'
-import controls from './controls-cmp.js'
+import noteControls from './note-controls-cmp.js'
 
 
 export default {
     template: `
-                <section class="note ">
-                <h1> {{data.title}} </h1>
+                <section class="note">
+                <h1 v-if="currMode !== 'edit'"> {{title}} </h1>
+                <h1 v-if="currMode === 'edit'">
+                        <input type="text" v-model="note.data.title"/>
+                </h1>
+
                     <div class="content">
-                        <p> {{data.txt}} </p> 
+                        <p v-if="currMode === 'list' || currMode === 'preview'">
+                         {{txt}}
+                        </p> 
+                        <p v-if="currMode === 'edit'">
+                          <textarea v-model="note.data.txt"> </textarea>
+                        </p>
                     </div>
-                    <controls></controls>
+
+                    <note-controls :note="note" :currMode="currMode"></note-controls>
                 </section>
                 `,
-    props: ['data'],
-    data(){
+    props: ['note','currMode'],
+    data() {
         return {
-           msg: null
+            title: this.note.data.title,
+            txt: this.note.data.txt,
         }
     },
     created() {
-       console.log('note-txt created');
+        console.log('note-txt created', this.note);
+        console.log('note-txt created', this.currMode);
+        // this.title = note.data.title;
     },
-    methods:{
+    methods: {
        
     },
     components: {
-        controls
+        noteControls
     }
 }

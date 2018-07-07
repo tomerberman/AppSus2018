@@ -1,7 +1,7 @@
-export const USR_MSG_DISPLAY = 'usr-msg-display';
-export const MSG_HAPPY_HOUR = 'happy-hour';
+// export const USR_MSG_DISPLAY = 'usr-msg-display';
+// export const MSG_HAPPY_HOUR = 'happy-hour';
 
-var bus = new Vue();
+export var bus = new Vue();
 
 
 // bus.$on(MSG_HAPPY_HOUR, level => {

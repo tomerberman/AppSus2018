@@ -6,7 +6,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
-function makeid(length = 6) {
+function makeId(length = 6) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   
@@ -33,6 +33,7 @@ export default {
     makeid,
     getRandomInt,
     getRandomString : makeid,
-    getCurrency
+    getCurrency,
+    makeId
 }
 

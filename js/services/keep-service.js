@@ -1,19 +1,22 @@
 import utilService from './util-service.js'
 import storageService from './storage-service.js'
-import eventBus, { USR_MSG_DISPLAY } from './event-bus.service.js'
+// import eventBus, { USR_MSG_DISPLAY } from './event-bus.service.js'
 
 var notes = [
-    { noteType: 'note-txt', isPinned: false, data: { title: 'note 2', txt: 'text for display 2' } },
-    { noteType: 'note-img', isPinned: false, data: { title: 'note imf 1', src: '../../../img/1.jpg' } },
-    { noteType: 'note-txt', isPinned: false, data: { title: 'note 1', txt: 'text for display 1' } },
-    { noteType: 'note-audio', isPinned: false, data: { title: 'note audio 1', src: '../../../sound/Kalimba.mp3' } }
+    { noteType: 'note-txt', id: utilService.makeId(6), isPinned: false, data: { title: 'note 2', txt: 'text for display 2' } },
+    { noteType: 'note-img', id: utilService.makeId(6), isPinned: false, data: { title: 'note imf 1', src: '../../../img/1.jpg' } },
+    { noteType: 'note-txt', id: utilService.makeId(6), isPinned: false, data: { title: 'note 1', txt: 'text for display 1' } },
+    { noteType: 'note-audio', id: utilService.makeId(6), isPinned: false, data: { title: 'note audio 1', src: '../../../sound/Kalimba.mp3' } }
 ];
+
 var NOTES_KEY = 'notesApp'
 var notesFilter = 'All';
 
 
 export default {
-    query
+    query,
+    deleteNote,
+    getNoteById
 }
 
 function query() {
@@ -41,7 +44,7 @@ function createNote(txt) {
 function addNote(noteTxt) {
     var newNote = createNote(noteTxt);
     notes.unshift(newNote);
-    saveNotes();
+    storageService.store();
     return Promise.resolve(newNote);
 }
 
@@ -49,7 +52,7 @@ function deleteNote(id) {
     var noteIdx = getNoteIdxById(id)
     if (noteIdx === -1) return;
     notes.splice(noteIdx, 1);
-    saveNotes();
+    storageService.store();
     return Promise.resolve();
 
 }
@@ -58,7 +61,7 @@ function toggleNote(id) {
     var note = getNoteById(id)
     if (!note) return;
     note.isDone = !note.isDone;
-    saveNotes();
+    storageService.store();
     return Promise.resolve(note);
 
 }
@@ -104,6 +107,6 @@ function getActiveCount() {
     return activeCount;
 }
 
-function saveNotes() {
-    saveToStorage(NOTES_KEY, notes);
+function store() {
+    storageService.store(NOTES_KEY, notes);
 }
