@@ -3,18 +3,15 @@ import emailDetails from '../cmps/email/email-details-cmp.js';
 import emailStatus from '../cmps/email/email-status-cmp.js';
 import emailService from '../services/email-service.js';
 import emailListItems from '../cmps/email/email-list-item-preview-cmp.js';
-
-
-// Vue.component('say-hello', {
-//     template: `<section>HELLO</section>`
-// })
+import emailLarge from './email-large.js';
 
 export default {
     template:`
         <div class="outer-container">
             <div class="inner-container flex">
                <email-list @emailSelected="selectEmail"  :emails="emails"></email-list>
-               <email-details v-if="selectedEmail" :email="selectedEmail"></email-details>
+               <email-details v-if="selected" :email="selected"></email-details>
+               <!-- <email-large email="selected"></email-large> -->
             </div>
             <email-status></email-status>
         </div>
@@ -30,34 +27,27 @@ export default {
     data() {
         return {
             emails : null,
-            selectedEmail : null,
+            selected : null,
             id : null,
         };
-
-        // currView : 'user-profile',
-            
-        //     cmps: [
-        //         {cmpType: 'say-hello', data: {greet : 'Ahalan'}},
-        //         {cmpType: 'user-profile', data: {user : {email: 'bo@bob.com'} } },
-        //         {cmpType: 'say-hello', data: {greet : 'Marhaba!'}},
-
-        //     ]
-        // }
     },
 
     created () {
         emailService.getEmails().then((res) => {
             this.emails = res;
             console.log('emails array =',this.emails);
-            this.selectedEmail = this.emails[0];
+            this.selected = this.emails[0];
         });
     },
 
     methods: {
 
         selectEmail(id){
-            console.log('this.selectedEmail =',this.selectedEmail);
-            this.selectedEmail = emailService.getEmailById(id);
+            console.log('unread count = ', emailService.getUnreadCount());
+            // console.log('emails Method: selectEmail this.selected =',this.selected);
+            emailService.getEmailById(id)
+            .then(res => this.selected = res);
+            // console.log('>>>>>>>>>> and after service, its ',this.selected);
         },
 
         changeCmp() {
@@ -65,28 +55,15 @@ export default {
         }
     },
     components: {
+        emailLarge,
         emailListItems,
         emailList,
         emailDetails,
         emailStatus,
-
-
-
-        'say-hello' : {
-            template: `<section>GREET {{data.greet}}</section>`,
-            props: ['data']
-        },
-        'user-profile' : {
-            template: `<section>
-                            {{data.user.email}}
-                            <input type="text" v-model="emailToEdit" />
-                        </section>`,
-            props: ['data'],
-            data() {
-                return {
-                    emailToEdit : this.data.user.email
-                }
-            }
-        }
+       
+                    // emailToEdit : this.data.user.email
+                // }
+            // }
+        // }
     }
 }

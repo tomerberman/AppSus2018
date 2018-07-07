@@ -16,12 +16,12 @@ export default {
     },
 
     created () {
-        console.log('email-list got emails=',this.emails);
+        // console.log('email-list Created! this.emails=',this.emails);
     },
 
     methods : {
         emitSelected(id) {
-            console.log('ddddddddddddddddffff');
+            // console.log('email-list Method emitSelected, emailSelected id = ',id);
             this.$emit('emailSelected',id);
         },
     }

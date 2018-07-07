@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 div {
@@ -8,6 +9,9 @@ div {
 }
 
 /* ================== HELPERS ================== */
+.bold {
+    font-weight: bold;
+}
 
 .flex {
     display: flex;
@@ -35,7 +39,6 @@ div {
 .list-container {
     background-color: slategray;
     display: inline-flex;
-    justify-content: space-between;
 }
 
 .list-item-container {
@@ -124,4 +127,28 @@ div {
 .progress-data {
     background-color: aqua;
     width: 80px;
+}
+
+.prev-next-container {
+}
+
+.prev-next {
+    /* display: inline-block; */
+    background: linear-gradient(#ccc, #eee, #ccc);
+    border-radius: 2em;
+    width: 130px;
+}
+
+.item-menu {
+    display: block;
+    position: absolute;
+    transform: translate(210px,12px);
+    width: 200px;
+    padding: 3px;
+    /* height: 100px; */
+    background-color: blue;
+}
+
+.red {
+background-color: red;
 }

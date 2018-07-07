@@ -1,4 +1,4 @@
-import myRouter from '../../routes.js'
+// import myRouter from '../../routes.js'
 
 export default {
     template: `
@@ -14,13 +14,12 @@ export default {
       </div>
       `,
 
-      props : ['email','emailDetails','emailSubject'],
+      props : ['email'],
 
       methods : {
         fullScreenRead() {
             console.log('fuLllllll   screeEENNN');
-            this.$router.push(`/${this.email.id}`);
-            
+            this.$router.push(`/email/large/${this.email.id}`);
         },
     },
   };
