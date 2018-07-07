@@ -8,12 +8,15 @@ export default {
           <button @click="sendEmail" class="btn send-cancel">Send</button>
           <button @click="cancelSending" class="btn send-cancel">Cancel and Delete</button>
         </div>
-        <div class="details-top">{{email.subject}}</div>
-        <div class="full-content">{{email.body}}</div>
+        <input v-model="email.subject" class="details-top"></input>
+        <textarea v-model="email.body" placeholder="type your letter here..."></textarea>
+        <!-- <div class="full-content">{{email.body}}</div> -->
       </div>
     `,
 
   props: ['email'],
+
+  // data: ['email.body'],
 
   created() {
     console.log('email-compose CREATED. params=', this.$route.params.emailId);
@@ -51,6 +54,13 @@ export default {
       .catch(res => {
         console.log('Sending Failure. server replied:',res);
       })
+    },
+
+    cancelSending(){
+      console.log('cancelSendin invoked');
+      
+      emailService.clearEmail(this.email.id);
+      this.$router.push('/email');
     }
 
   },

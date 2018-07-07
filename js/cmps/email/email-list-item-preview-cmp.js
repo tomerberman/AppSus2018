@@ -1,4 +1,5 @@
 import emailService from '../../services/email-service.js'
+// import moment from '../../../lib/moment.js'
 
 export default {
   template: `
@@ -6,17 +7,23 @@ export default {
         <div class="list-item-icon" @click="markAsUnread">*</div>
         <div v-if="email" :class="{bold:email.isRead}" class="list-item">{{email.subject}}</div>
         <div v-if="!email" class="list-item">NO_EMAIL LOADED</div>
-        <div class="list-item-status">16:37</div>
+        <div v-if="email" class="list-item-time">{{dateAndTime()}}</div>
     </div>
     `,
 
-  props: ['email','viewMenu'],
+  props: ['email','viewMenu','dateAndTime'],
 
   created() {
     this.viewMenu = false;
   },
 
   methods: {
+    dateAndTime(){
+      moment().format('MMMM Do YYYY, h:mm:ss a');
+      var str = moment(`/Date(${this.email.sentAt})/`).format("DD/MM/YYYY, h:mm");
+      return str;
+    },
+
     selectEmail() {
       console.log('item-preview, email props is :', this.email);
       console.log('emitting id=', this.email.id);
