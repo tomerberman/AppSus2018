@@ -132,7 +132,7 @@ function createNewEmail(){
     body: 'no body yet',
     isRead: false,
     sentAt: null,
-    id: utilService.makeid(8)
+    id: utilService.makeId(8)
   };
   emails.push(newEmail);
   return newEmail;
