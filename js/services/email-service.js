@@ -1,3 +1,5 @@
+import utilService from "./util-service.js";
+
 var emails = [
   {
     subject: 'Welcome to our Academy',
@@ -20,13 +22,44 @@ var emails = [
 
   {
     subject:
-      'Automotive Animations That Masterfully Explain How Your Car Works',
+      'We run out of ideas for Email subjects. please help',
     body:
       "The leaf spring is the oldest and simplest suspension. Several long, thin steel leaves are bound together in a pack by clamps. One end of the pack is connected to the vehicle's frame vis a bushing. The other end uses a shackle that can move for and aft. Combined with the flexing of the leaf pack itself, that provides the suspension movement and cushions the ride. Most modern pickup trucks still use this setup for their rear suspension because of its simplicity and durability. The Chevrolet video from the 1930s shows how the suspension works and outlines its drawbacks for passenger car use. The manual transmission        The old-school manual might be an endangered species, but you should learn to drive you—and learn how it works. Manual transmissions provide a direct connection to the machine—one that makes the whole experience of driving a more rewarding activity.        The job of the manual transmission is to transmit the engine's torque from the input shaft, through various gearsets to the output and on to the axle and driven wheels. Those gearsets in the transmission combine with the gears in the axle to multiply the torque of the engine and get the car moving. This basic animation shows how the gears are selected, and what these gears actually do when you move the shifter.",
     isRead: false,
     sentAt: 152907066400,
     id: 't5FeR2Jv'
+  },
+
+  {
+    subject: 'Information about your request',
+    body:
+      'All you need to do is get into the first link and press accept. best luck and regards,  refer to as a course outline and a road map, gives you a structured and instructive outline for learning JavaScript properly. In fact, you will find two study guides below, one for absolute beginners',
+    isRead: false,
+    sentAt: 1390807000000,
+    id: 'ZZReJd39'
+  },
+
+  {
+    subject:
+      'Hi Shlomi, can you call me back? your phone is off',
+    body:
+      'I hate to say it, but its annoying. so lorem it. This study guide, which I also refer to as a course outline and a road map, gives you a structured and instructive outline for learning JavaScript properly. In fact, you will find two study guides below, one for absolute beginners and the other for experienced programmers and web developers. You do want to learn JavaScript. I presume you are here for that reason, and you have made a wise decision. For if you want to develop modern websites and web applications (including an internet startup), or if you want a high-paying developer job ($75K to $250K+), JavaScript is undoubtedly the best web-development language to learn today, unless you want to develop native iOS or Android apps exclusively. And while there exist ample online resources to teach you JavaScript, finding the most efficient and beneficial method to learn the “language of the web” can be a frustrating endeavor. This study guide streamlines and simplifies the process; it has proven successful in helping thousands, and thousands more read and follow it each day.',
+    isRead: false,
+    sentAt: 1500407000000,
+    id: '7XReZdwD'
+  },
+
+  {
+    subject:
+      'Automotive Animations That Masterfully Explain How Your Car Works',
+    body:
+      "No one knows weather your car is good. but sometimes you are bound together in a pack by clamps. One end of the pack is connected to the vehicle's frame vis a bushing. The other end uses a shackle that can move for and aft. Combined with the flexing of the leaf pack itself, that provides the suspension movement and cushions the ride. Most modern pickup trucks still use this setup for their rear suspension because of its simplicity and durability. The Chevrolet video from the 1930s shows how the suspension works and outlines its drawbacks for passenger car use. The manual transmission        The old-school manual might be an endangered species, but you should learn to drive you—and learn how it works. Manual transmissions provide a direct connection to the machine—one that makes the whole experience of driving a more rewarding activity.        The job of the manual transmission is to transmit the engine's torque from the input shaft, through various gearsets to the output and on to the axle and driven wheels. Those gearsets in the transmission combine with the gears in the axle to multiply the torque of the engine and get the car moving. This basic animation shows how the gears are selected, and what these gears actually do when you move the shifter.",
+    isRead: false,
+    sentAt: 151907000000,
+    id: 'pkFeR2Jm'
   }
+
+
 ];
 
 export default {
@@ -36,7 +69,9 @@ export default {
   getPrevEmailId,
   markAsRead,
   markAsUnread,
-  getUnreadCount
+  getUnreadCount,
+  createNewEmail,
+  sendEmail,
 };
 
 function getEmails() {
@@ -90,6 +125,32 @@ function getUnreadCount() {
   }
   return sum;
 }
+
+function createNewEmail(){
+  var newEmail = {
+    subject: 'no subject yet',
+    body: 'no body yet',
+    isRead: false,
+    sentAt: null,
+    id: utilService.makeid(8)
+  };
+  emails.push(newEmail);
+  return newEmail;
+}
+
+function sendEmail(composedEmail){  // because sending to myself, it arrives to the emails array
+  var currEmail = getEmailById(composedEmail.id);
+  currEmail = composedEmail;
+  console.log('sending complete. the new emails array is \n',emails);
+  return Promise.resolve ('Sending OK');
+}
+
+  // subject: 'Welcome to our Academy',
+  // body:
+  //   'We are glad to notify you your subscription was accepted. Please lorem us now. Your details were accepted. best luck and regards, Shalom',
+  // isRead: false,
+  // sentAt: 1530807066671,
+  // id: 'K8ReJd3R'
 
 //  => {
 //   console.log ('Service: the next email is ', emails[idx+1])

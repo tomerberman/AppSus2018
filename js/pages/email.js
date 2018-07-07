@@ -4,10 +4,12 @@ import emailStatus from '../cmps/email/email-status-cmp.js';
 import emailService from '../services/email-service.js';
 import emailListItems from '../cmps/email/email-list-item-preview-cmp.js';
 import emailLarge from './email-large.js';
+import emailCompose from './compose.js';
 
 export default {
     template:`
         <div class="outer-container">
+            <div class="btn-compose" @click="composeNew">COMPOSE NEW MAIL</div>
             <div class="inner-container flex">
                <email-list @emailSelected="selectEmail"  :emails="emails"></email-list>
                <email-details v-if="selected" :email="selected"></email-details>
@@ -52,9 +54,16 @@ export default {
 
         changeCmp() {
             this.currView = (this.currView === 'say-hello')? 'user-profile' : 'say-hello'
+        },
+
+        composeNew() {
+            this.selected = emailService.createNewEmail();
+            console.log('service returned new empty mail',this.selected);
+            this.$router.push(`/email/compose/${this.selected.id}`);
         }
     },
     components: {
+        emailCompose,
         emailLarge,
         emailListItems,
         emailList,

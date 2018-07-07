@@ -30,6 +30,7 @@ function getCurrency(currencyCode) {
 }
 
 export default {
+    makeid,
     getRandomInt,
     getRandomString : makeid,
     getCurrency

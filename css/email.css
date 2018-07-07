@@ -137,6 +137,11 @@ div {
     background: linear-gradient(#ccc, #eee, #ccc);
     border-radius: 2em;
     width: 130px;
+    cursor: pointer;
+}
+
+.prev-next:hover {
+    filter: invert(1);
 }
 
 .item-menu {
@@ -151,4 +156,16 @@ div {
 
 .red {
 background-color: red;
+}
+
+.btn-compose {
+    /* display: inline-block; */
+    background: linear-gradient(#ccc, #eee, #ccc);
+    border-radius: 2em;
+    width: 200px;
+    cursor: pointer;
+}
+
+.btn-compose:hover{
+    filter: invert(1);
 }
