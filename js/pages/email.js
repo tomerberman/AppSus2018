@@ -7,72 +7,120 @@ import emailLarge from './email-large.js';
 import emailCompose from './compose.js';
 
 export default {
-    template:`
+  template: `
         <div class="outer-container">
-            <div class="btn-compose" @click="composeNew">COMPOSE NEW MAIL</div>
+            <div class="control-bar flex">
+            <button class="btn-compose" @click="composeNew">Compose New</button>
+            <button class="btn-show-unread" @click="showUnread">Unread Emails</button>
+            <button class="btn-show-all" @click="showAll">All Emails</button>
+            <button class="btn-sort-date" @click="sortByDate">Sort by Date</button>
+            <button class="btn-sort-subject" @click="sortBySubject">Sort by Subject</button>
+            </div>
+            <input type="text" class="search" v-model="searchQuery" placeholder="Search Emails">
             <div class="inner-container flex">
-               <email-list @emailSelected="selectEmail"  :emails="emails"></email-list>
-               <email-details v-if="selected" :email="selected"></email-details>
-               <!-- <email-large email="selected"></email-large> -->
+               <email-list @emailSelected="selectEmail"  :emailsToShow="emailsToShow"></email-list>
+               <email-details :email="selected"></email-details>
             </div>
             <email-status></email-status>
         </div>
 `,
 
-/*
-        <!-- <component v-for="(cmp, idx) in cmps" :is="cmp.cmpType" :key="idx" :data="cmp.data"> -->
-        <!-- <keep-alive> -->
-            <!-- <component :is="currView" :data="{user: {email: 'x@x.com'}}"></component> -->
-        <!-- </keep-alive> -->
-*/
+  data() {
+    return {
+      emails: null,
+      selected: null,
+      id: null,
+      searchQuery: null,
+      showUnreadOnly: false,
+      sortBy: null
+    };
+  },
 
-    data() {
-        return {
-            emails : null,
-            selected : null,
-            id : null,
-        };
-    },
-
-    created () {
-        emailService.getEmails().then((res) => {
-            this.emails = res;
-            console.log('emails array =',this.emails);
-            this.selected = this.emails[0];
+  computed: {
+    emailsToShow() {
+      var emailsToShow = this.emails; // [];
+      if (this.showUnreadOnly) {
+        emailsToShow = this.emails.filter(item => {
+          return !item.isRead;
         });
-    },
+        // return emailsToShow;
+      } //else return this.emails;
+      if (this.searchQuery) {
+        this.selected = null;
+        emailsToShow = emailsToShow.filter(item => {
+          return ( item.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          item.body.toLowerCase().includes(this.searchQuery.toLowerCase()));
+        });
+      }
 
-    methods: {
-
-        selectEmail(id){
-            console.log('unread count = ', emailService.getUnreadCount());
-            // console.log('emails Method: selectEmail this.selected =',this.selected);
-            emailService.getEmailById(id)
-            .then(res => this.selected = res);
-            // console.log('>>>>>>>>>> and after service, its ',this.selected);
-        },
-
-        changeCmp() {
-            this.currView = (this.currView === 'say-hello')? 'user-profile' : 'say-hello'
-        },
-
-        composeNew() {
-            this.selected = emailService.createNewEmail();
-            console.log('service returned new empty mail',this.selected);
-            this.$router.push(`/email/compose/${this.selected.id}`);
+      switch (this.sortBy) {
+        case null : break;
+        case 'date' : {
+          emailsToShow = emailsToShow.sort(function(a,b) {
+            if (a.sentAt > b.sentAt) return -1;
+            else return 1;
+          });
+          break;
         }
-    },
-    components: {
-        emailCompose,
-        emailLarge,
-        emailListItems,
-        emailList,
-        emailDetails,
-        emailStatus,
-       
-                    // emailToEdit : this.data.user.email
-                // }
-            // }
-        // }
+        case 'subject' : {
+          emailsToShow = emailsToShow.sort(function(a,b) {
+            if (a.subject.toLowerCase() > b.subject.toLowerCase()) return 1;
+            else return -1;
+          });
+        }
+      }
+      return emailsToShow;
     }
-}
+  },
+
+  created() {
+    emailService.getEmails().then(res => {
+      this.emails = res;
+      // this.selected = this.emails[0];
+    });
+  },
+
+  methods: {
+    selectEmail(id) {
+      console.log('unread count = ', emailService.getUnreadCount());
+      emailService.getEmailById(id).then(res => {
+        this.selected = res;
+        emailService.markAsRead(id);
+      });
+    },
+
+    composeNew() {
+      this.selected = emailService.createNewEmail();
+      console.log('service returned new empty mail', this.selected);
+      this.$router.push(`/email/compose/${this.selected.id}`);
+    },
+
+    showUnread() {
+      this.showUnreadOnly = true;
+      this.selected = null;
+    },
+
+    showAll() {
+      this.showUnreadOnly = false;
+      this.selected = null;
+    },
+
+    sortByDate () {
+      this.sortBy = 'date';
+    },
+
+    sortBySubject () {
+      this.sortBy = 'subject';
+    },
+
+
+  },
+  components: {
+    emailCompose,
+    emailLarge,
+    emailListItems,
+    emailList,
+    emailDetails,
+    emailStatus
+  }
+};
