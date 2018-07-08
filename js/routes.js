@@ -7,14 +7,12 @@ import notePreview from './cmps/keep/note-preview-cmp.js'
 import noteEdit from './cmps/keep/note-edit-cmp.js'
 
 
-// import emailLarge from './pages/email-large.js'
 
 const routes = [
   { path: '/', component: home },
   { path: '/email', component: email },
   { path: '/email/large/:emailId', component: emailLarge },
   { path: '/email/compose/:emailId', component: compose },
-  // { path: '/email/:emailId', component: emailLarge },
   { path: '/keep', component: keep },
   { path: '/keep/:noteId', component: notePreview },
   { path: '/keep/edit/:noteId', component: noteEdit },

@@ -7,26 +7,25 @@ import noteAudio from './note-audio-cmp.js'
 
 export default {    
     template: `
-            <section class="notes-filter">
-            <div>
-            <button  @click="getNote('note-txt')">text</button>
-            <button @click="getNote('note-img')">img</button>
-            <button @click="getNote('note-audio')">audio</button>
-            <button v-if="note" @click="addNote()">close</button>
-        </div>
-                <component v-if="note" :is="note.noteType" :note="note" :curr-mode="'new'">
+            <section class="notes-new">
+                <h3>- Add New -</h3>
+                <div>
+                    <button @click="getNote('note-txt')" title="text"><i class="fas fa-font"></i></button>
+                    <button @click="getNote('note-img')" title="image"><i class="far fa-image"></i></button>
+                    <button @click="getNote('note-audio')" title="audio"><i class="fas fa-volume-up"></i></button>
+                    <button v-if="note && newMode" @click="closeNew()" title="discard">discard</button>
+                    <button v-if="note && newMode" @click="addNote()" title="save">save</button>
+                </div>
+                <component v-if="note && newMode" :is="note.noteType" :note="note" :curr-mode="'new'">
                 </component> 
-
-               
-
-                <pre>
-                    note {{note}}
-                </pre>
+            
+                <div class="hr-divider"></div>
             </section>
     `,
 
     data() {
         return {
+            newMode:false,
             title:'',
             note: null
         }
@@ -34,17 +33,27 @@ export default {
 
     methods: {
         getNote(noteType) {
+            this.note = null;
             keepService.getNoteType(noteType).then(note => {  
                 note.noteType = noteType;
-                this.note = JSON.parse(JSON.stringify(note));
+                this.note = note;
+                // this.note = JSON.parse(JSON.stringify(note));
             });
-            // this.addNew = true;
+
+            this.newMode = true;
             // this.$router.push(`/keep/edit/`);
             // console.log('filterNotes', this.filter);
             // this.$emit('filtered', this.filter);
         },
         addNote() {
+            this.newMode = false;
             bus.$emit('addNote', this.note);
+            
+            // console.log('delete', noteId);
+        },
+        closeNew() {
+            this.newMode = false;
+            // bus.$emit('addNote', this.note);
             
             // console.log('delete', noteId);
         }

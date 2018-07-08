@@ -1,20 +1,11 @@
-// Vue.component('say-hello', {
-//     template: `<section>HELLO</section>`
-// })
 
 export default {
     template:`
     <section class="home">
-        <h1>Home!</h1>
-        <!-- <button @click="cmps.push({cmpType: 'say-hello', data: {greet : 'Hi'}})">+</button>
-        <component v-for="(cmp, idx) in cmps" :is="cmp.cmpType" :key="idx" :data="cmp.data">
-        </component> -->
-
-
-        <button @click="changeCmp">Change Cmp</button>
-        <keep-alive>
-            <component :is="currView" :data="{user: {email: 'x@x.com'}}"></component>
-        </keep-alive>
+        <h2 >Welcome to Apsus!</h2>
+        <h3>The best App + Sus on the web!</h3>
+       <div class="box" @click="$router.push('/email')"> <i class="fab fa-mailchimp"></i> Email</div>
+       <div class="box" @click="$router.push('/keep')"><i class="far fa-sticky-note"></i> Keep </div>
 
     </section>
     `,

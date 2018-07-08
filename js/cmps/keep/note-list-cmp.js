@@ -10,19 +10,11 @@ export default {
     
     template: `
         <section class="note-list">
-            <component v-for="(note, idx) in notes" :is="note.noteType" :key="idx" :note="note" :curr-mode="'list'">
+            <component v-for="(note, idx) in notes" :is="note.noteType" :key="note.id" :note="note" :curr-mode="'list'">
             </component> 
-
-            <pre>
-               {{notes}}
-            </pre>
         </section>
-        
     `,
     created() {
-       console.log('note-list created', this.notes);
-       
-            
     },
     methods: {
         noteSelected(noteId) {

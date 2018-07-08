@@ -2,42 +2,39 @@ import utilService from './util-service.js'
 import storageService from './storage-service.js'
 // import eventBus, { USR_MSG_DISPLAY } from './event-bus.service.js'
 
-var notes = [
-    { noteType: 'note-txt', id: utilService.makeId(6), isPinned: false, data: { title: 'note 2', txt: 'text for display 2' } },
-    { noteType: 'note-img', id: utilService.makeId(6), isPinned: false, data: { title: 'note imf 1', src: '../../../img/1.jpg' } },
-    { noteType: 'note-txt', id: utilService.makeId(6), isPinned: false, data: { title: 'note 1', txt: 'text for display 1' } },
-    { noteType: 'note-audio', id: utilService.makeId(6), isPinned: false, data: { title: 'note audio 1', src: '../../../sound/Kalimba.mp3' } }
-];
+var notes = [];
 
 var NOTES_KEY = 'keepApp'
 var notesFilter = 'All';
 
-var noteTxt = {
-    noteType: '',
-    id: utilService.makeId(6),
-    isPinned: false,
-    data: {
-        title: '',
-        txt: ''
+function getNoteTxt() {
+    return {
+        noteType: '',
+        id: utilService.makeId(6),
+        data: {
+            title: '',
+            txt: ''
+        }
     }
 }
 
-var noteVidAudImg = {
-    noteType: '',
-    id: utilService.makeId(6),
-    isPinned: false,
-    data: {
-        title: '',
-        src: ''
+function getNoteVidAudImg() {
+    return {
+        noteType: '',
+        id: utilService.makeId(6),
+        data: {
+            title: '',
+            src: ''
+        }
     }
 }
-
-var noteList = {
-    noteType: '',
-    id: utilService.makeId(6),
-    isPinned: false,
-    data: {
-        title: ''
+function getNoteList() {
+    return {
+        noteType: '',
+        id: utilService.makeId(6),
+        data: {
+            title: ''
+        }
     }
 }
 
@@ -47,7 +44,8 @@ export default {
     getNoteById,
     store,
     getNoteType,
-    addNote
+    addNote,
+    pinNote
 }
 
 function getNoteType(noteType) {
@@ -55,16 +53,16 @@ function getNoteType(noteType) {
 
     switch (noteType) {
         case 'note-img':
-            note = noteVidAudImg;
+            note = getNoteVidAudImg();
             break;
         case 'note-audio':
-            note = noteVidAudImg;
+            note = getNoteVidAudImg();
             break;
         case 'note-list':
-            note = 'note-list';
+            note = getNoteList();
             break;
         default:
-            note = noteTxt;
+            note = getNoteTxt();
     }
 
     return Promise.resolve(note);
@@ -74,30 +72,33 @@ function query() {
     notes = storageService.load(NOTES_KEY);
     if (!notes || notes.length === 0) {
         notes = [
-            { noteType: 'note-txt', id: utilService.makeId(6), isPinned: false, data: { title: 'note 2', txt: 'text for display 2' } },
-            { noteType: 'note-img', id: utilService.makeId(6), isPinned: false, data: { title: 'note imf 1', src: '../../../img/1.jpg' } },
-            { noteType: 'note-txt', id: utilService.makeId(6), isPinned: false, data: { title: 'note 1', txt: 'text for display 1' } },
-            { noteType: 'note-audio', id: utilService.makeId(6), isPinned: false, data: { title: 'note audio 1', src: '../../../sound/Kalimba.mp3' } }
+            { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'note 2', txt: 'text for display 2' } },
+            { noteType: 'note-img', id: utilService.makeId(6), data: { title: 'note imf 1', src: '../../../img/1.jpg' } },
+            { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'note 1', txt: 'text for display 1' } },
+            { noteType: 'note-audio', id: utilService.makeId(6), data: { title: 'note audio 1', src: '../../../sound/Kalimba.mp3' } }
         ];
     }
     return Promise.resolve(notes);
 
-  
+
 }
 
-// function createNote(txt) {
-//     return {
-//         id: makeId(),
-//         txt: txt,
-//         isDone: false,
-//     }
-// }
 
 function addNote(note) {
-    var newNote = note;
-    notes.unshift(newNote);
+    console.log('addNote - ', note);
+    notes.unshift(note);
     storageService.store(NOTES_KEY, notes);
-    return Promise.resolve(newNote);
+    return Promise.resolve();
+}
+
+function pinNote(id) {
+    var noteIdx = getNoteIdxById(id);
+    if (noteIdx === -1) return;
+    var note = notes.splice(noteIdx, 1)[0];
+    console.log('pinNote --- ', note);
+    notes.unshift(note);
+    storageService.store(NOTES_KEY, notes);
+    return Promise.resolve();
 }
 
 function deleteNote(id) {
@@ -108,6 +109,7 @@ function deleteNote(id) {
     return Promise.resolve();
 
 }
+
 
 function toggleNote(id) {
     var note = getNoteById(id)

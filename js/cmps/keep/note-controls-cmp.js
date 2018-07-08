@@ -3,18 +3,18 @@ import bus from '../../services/event-bus.service.js'
 
 export default {
     template: `
-        <section class="controls" v-if="currMode !== 'preview'">
-            <button v-if="currMode === 'edit' || currMode === 'list'" @click="deleteNote(note.id)">delete</button>
-            <button v-if="currMode === 'edit' || currMode === 'list'" @click="editNote(note.id)">edit</button>
-            <button v-if="currMode === 'list' || currMode === 'edit'" @click="pinNote(note.id)">pin</button>
-            <button  v-if="currMode === 'list'" @click="previewNote(note.id)">preview</button>
-            <button  v-if="currMode === 'edit'" @click="saveNotes()">save changes</button>
+        <section class="controls" v-if="currMode !== 'preview' && currMode !== 'new'">
+            <button v-if="currMode === 'list'" @click="deleteNote(note.id)" title="delete"> <i class="fas fa-trash-alt"> </i></button>
+            <button v-if="currMode === 'list'" @click="editNote(note.id)" title="edit"> <i class="fas fa-pencil-alt" ></i></button>
+            <button v-if="currMode === 'list'" @click="pinNote(note.id)" title="pin to starts"> <i class="fas fa-thumbtack"></i> </button>
+            <button  v-if="currMode === 'list'" @click="previewNote(note.id)" title="preview"> <i class="fas fa-expand"></i> </button>
+            <button  v-if="currMode === 'edit'" @click="saveNotes()" title="save changes">save changes  <i class="far fa-save"></i></button>
         </section>
     `,
     props: ['note', 'currMode'],
     data() {
         return {
-            noteId: this.note.id
+            // noteId: this.note.id
         }
     },
     created() {
@@ -40,7 +40,20 @@ export default {
         saveNotes() {
             bus.$emit('saveNotes');
             // console.log('delete', noteId);
+        },
+        // changeColor(color) {
+        //     // bus.$emit('saveNotes');
+        //     console.log('color', color);
+        // }
+
+        changeColor(jscolor) {
+            // 'jscolor' instance can be used as a string
+            console.log('color', jscolor);
+            // document.getElementById('rect').style.backgroundColor = '#' + jscolor
         }
         
     }
 }
+
+
+{/* <input class="jscolor {onFineChange:'changeColor(this)'}" value="cc66ff"> */}
