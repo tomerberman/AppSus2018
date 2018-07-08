@@ -46,11 +46,11 @@ export default {
         //     console.log('color', color);
         // }
 
-        changeColor(jscolor) {
+        // changeColor(jscolor) {
             // 'jscolor' instance can be used as a string
-            console.log('color', jscolor);
+            // console.log('color', jscolor);
             // document.getElementById('rect').style.backgroundColor = '#' + jscolor
-        }
+        // }
         
     }
 }
