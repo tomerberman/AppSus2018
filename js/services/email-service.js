@@ -149,12 +149,11 @@ function sendEmail(newEmail) {
   return Promise.resolve('Sending OK');
 }
 
-function clearEmail() {
-  console.log('clearing mail');
-  console.log('before cleaning, email=',JSON.parse(JSON.stringify(emails)));
-  
-  emails.splice(emails.length-1 ,  1);
-  console.log('after cleaning, email=',emails);
+function clearEmail(id) {
+  var idx = emails.findIndex(function(email) {
+    return email.id === id;
+  })
+  emails.splice(idx ,  1);
 }
 
 

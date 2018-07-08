@@ -4,15 +4,14 @@ import bus from '../services/event-bus.service.js';
 export default {
   template: `
     <div class="nav-bar-container flex column">
-        <h1> App-sus </h1>
-        <div class="nav-bar flex">
-            <div class="nav-bar-counter">unread: {{unreadStatus.unread}}</div>
-            <div class="nav-bar-counter">total: {{unreadStatus.total}}</div>
-        </div>
-        <div>
+      <div class="nav-bar flex">
+        <div v-if="unreadStatus.unread > 0" class="nav-bar-counter">New {{unreadStatus.unread}}</div>
+        <div class="app-name">App-sus</div>
+        <div class="routing-links flex">
             <router-link exact to="/">Home</router-link> |
             <router-link to="/email">email</router-link> |
             <router-link to="/keep">keep</router-link>
+        </div>
         </div>
     </div>
 `,
@@ -20,17 +19,12 @@ export default {
   data() {
     return {
         unreadStatus: emailService.getUnreadCount()
-    //   unreadStatus() {
-    //     var unreadStatus = emailService.getUnreadCount();
-    //     return unreadStatus;
-    //   }
     };
   },
 
   created() {
     bus.$on('unreadUpdated', () => {
       this.unreadStatus = emailService.getUnreadCount()
-    //   console.log('HOME recieved unread count:', x);
     });
   }
 };

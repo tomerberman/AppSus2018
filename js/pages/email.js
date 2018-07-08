@@ -13,12 +13,21 @@ export default {
         <div class="outer-container">
             <div class="control-bar flex">
             <button class="btn-compose" @click="composeNew">Compose New</button>
-            <button class="btn-show-unread" @click="showUnread">Unread Emails</button>
-            <button class="btn-show-all" @click="showAll">All Emails</button>
             <button class="btn-sort-date" @click="sortByDate">Sort by Date</button>
             <button class="btn-sort-subject" @click="sortBySubject">Sort by Subject</button>
             </div>
-            <input type="text" class="search" v-model="searchQuery" placeholder="Search Emails">
+            <section class="radio-search flex">
+              <label>
+              <input type="radio" id="radio-filter-all" value="all" v-model="filterByStatus">All
+              </label>
+              <label>
+              <input type="radio" id="radio-filter-read" value="read" v-model="filterByStatus">Read
+              </label>
+              <label>
+              <input type="radio" id="radio-filter-unread" value="unread" v-model="filterByStatus">Unread
+              </label>
+              <input type="text" class="search" v-model="searchQuery" placeholder="Search Emails">
+            </section>
             <div class="inner-container flex">
                <email-list @emailSelected="selectEmail"  :emailsToShow="emailsToShow"></email-list>
                <email-details :email="selected"></email-details>
@@ -33,20 +42,32 @@ export default {
       selected: null,
       id: null,
       searchQuery: null,
-      showUnreadOnly: false,
-      sortBy: null
+      sortBy: null,
+      filterByStatus : 'all',
     };
   },
 
   computed: {
+    
     emailsToShow() {
-      var emailsToShow = this.emails; // [];
-      if (this.showUnreadOnly) {
+      var emailsToShow = this.emails;
+
+      switch (this.filterByStatus) {
+        case 'all' : 
+        break;
+
+        case 'read' : 
+        emailsToShow = this.emails.filter(item => {
+          return item.isRead;
+        });
+        break;
+
+        case 'unread' : 
         emailsToShow = this.emails.filter(item => {
           return !item.isRead;
         });
-        // return emailsToShow;
-      } //else return this.emails;
+      }
+
       if (this.searchQuery) {
         this.selected = null;
         emailsToShow = emailsToShow.filter(item => {
@@ -78,34 +99,38 @@ export default {
   created() {
     emailService.getEmails().then(res => {
       this.emails = res;
-      // this.selected = this.emails[0];
     });
   },
 
   methods: {
     selectEmail(id) {
-      console.log('unread count = ', emailService.getUnreadCount());
-      emailService.getEmailById(id).then(res => {
-        this.selected = res;
-        emailService.markAsRead(id);
-        bus.$emit('unreadUpdated');
-
-      });
+      var isSmall = window.innerWidth < 680;
+      if (isSmall) {
+        this.$router.push(`/email/large/${id}`);
+      } else {
+        emailService.getEmailById(id).then(res => {
+          this.selected = res;
+          emailService.markAsRead(id);
+          bus.$emit('unreadUpdated');
+  
+        });
+      }
     },
 
     composeNew() {
       this.selected = emailService.createNewEmail();
-      console.log('service returned new empty mail', this.selected);
       this.$router.push(`/email/compose/${this.selected.id}`);
     },
 
     showUnread() {
-      this.showUnreadOnly = true;
+      this.selected = null;
+    },
+
+    showRead() {
       this.selected = null;
     },
 
     showAll() {
-      this.showUnreadOnly = false;
       this.selected = null;
     },
 

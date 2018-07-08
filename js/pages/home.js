@@ -1,15 +1,7 @@
-import bus from '../services/event-bus.service.js'
-import emailService from '../services/email-service.js';
-
 export default {
     template:`
     <section class="home">
         <h1>Home!</h1>
-        <!-- <button @click="cmps.push({cmpType: 'say-hello', data: {greet : 'Hi'}})">+</button>
-        <component v-for="(cmp, idx) in cmps" :is="cmp.cmpType" :key="idx" :data="cmp.data">
-        </component> -->
-
-
         <button @click="changeCmp">Change Cmp</button>
         <keep-alive>
             <component :is="currView" :data="{user: {email: 'x@x.com'}}"></component>

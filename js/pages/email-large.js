@@ -3,57 +3,53 @@ import bus from '../services/event-bus.service.js';
 
 export default {
   template: `
-    <div v-if="email" class="details-container flex column">
-      <div>===emailLarge===</div>
-      <div class="prev-next-container flex">
-        <button @click="prevEmail" class="btn prev-next">Previous Email</button>
-        <button @click="nextEmail" class="btn prev-next">Next Email</button>
+    <section v-if="email" class="details-container flex column">
+      <div class="prev-next-outer flex">
+        <div class="details flex">
+          <div class="prev-next-container flex">
+            <button @click="prevEmail" class="btn prev-next">Previous Email</button>
+            <button @click="nextEmail" class="btn prev-next">Next Email</button>
+            <button @click="deleteEmail" class="btn delete">Delete Email</button>
+          </div>
+          <button @click="BackToInbox" class="btn back-to">Back to Inbox</button>
+        </div>  
       </div>
       <div class="details-top">{{email.subject}}</div>
-      <div class="full-content">{{email.body}}</div>
-    </div>
+    <div class="full-content">{{email.body}}</div>
+    </section>
     `,
 
-  props: ['email'],
+  data () {
+    return {
+      email : null,
+    }
+  },
 
   created() {
-    console.log('email-large CREATED. params=', this.$route.params.emailId);
     this.emailId = this.$route.params.emailId;
-
-    console.log('email-large CREATED: this.emailID =', this.emailId);
-    console.log('email-large CREATED: this.email =', this.email);
     emailService.getEmailById(this.emailId).then(res => {
       this.email = res;
-      console.log(
-        'email-large CREATED: this.email (after service) =',
-        this.email
-      );
     });
   },
 
   watch: {
     '$route.params.emailId': function(newId) {
-      console.log('$route.params.emailId has changed!', newId);
       this.loadEmail(newId);
     }
   },
 
   methods: {
     loadEmail(id) {
-      console.log('loadEmail at email-large , id  = ', id);
       emailService.getEmailById(id).then(res => {
         this.email = res;
-        console.log('email-large METHOD: this.email = ', this.email);
       });
     },
 
     nextEmail() {
       emailService.getNextEmailId(this.email.id).then(id => {
         this.$router.push(`${id}`);
-        // route? router?
         emailService.markAsRead(id);
         bus.$emit('unreadUpdated');
-
       });
     },
 
@@ -62,9 +58,16 @@ export default {
         this.$router.push(`${id}`);
         emailService.markAsRead(id);
         bus.$emit('unreadUpdated');
-        // route? router?
       });
     },
 
-  },
+    deleteEmail() {
+      emailService.clearEmail(this.email.id);
+      this.nextEmail();
+    },
+
+    BackToInbox() {
+      this.$router.push(`/email/`);
+    }
+  }
 };

@@ -4,7 +4,8 @@ import bus from '../../services/event-bus.service.js'
 export default {
   template: `
     <div @click="selectEmail" class="list-item-container flex">
-        <div class="list-item-icon" @click.stop="markAsUnread">*</div>
+        <div v-if="!email.isRead" class="list-item-icon" @click.stop="markAsUnread"><i class="fas fa-envelope"></i></div>
+        <div v-if="email.isRead" class="list-item-icon" @click.stop="markAsUnread"><i class="fas fa-envelope-open"></i></div>
         <div v-if="email" :class="{bold:!email.isRead}" class="list-item">{{email.subject}}</div>
         <div v-if="!email" class="list-item">NO_EMAIL LOADED</div>
         <div v-if="email" :class="{bold:!email.isRead}" class="list-item-time">{{dateAndTime()}}</div>
@@ -33,7 +34,3 @@ export default {
     }
   }
 };
-
-{
-  /* <div class="list-item">You just won the lottery! please contact us immediatly</div> */
-}
