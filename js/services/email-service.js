@@ -117,10 +117,13 @@ function getPrevEmailId(id) {
 
 function getUnreadCount() {
   var sum = 0;
+  var res = {};
   for (let i = 0; i < emails.length; i++) {
     if (!emails[i].isRead) sum++;
   }
-  return sum;
+  res['total'] = emails.length;
+  res['unread'] = sum;
+  return res;
 }
 
 function createNewEmail() {
