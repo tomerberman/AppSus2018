@@ -148,8 +148,12 @@ function sendEmail(newEmail) {
 
 function clearEmail() {
   console.log('clearing mail');
-  this.emails.splice(emails.length-3 ,  2);
+  console.log('before cleaning, email=',JSON.parse(JSON.stringify(emails)));
+  
+  emails.splice(emails.length-1 ,  1);
+  console.log('after cleaning, email=',emails);
 }
+
 
 // subject: 'Welcome to our Academy',
 // body:

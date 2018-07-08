@@ -3,7 +3,7 @@ import emailService from '../services/email-service.js';
 export default {
   template: `
       <div>===COMPOSE===
-    <!-- <div v-if="email" class="details-container flex column"> -->
+    <div v-if="email" class="details-container flex column">
         <div class="send-cancel-container flex">
           <button @click="sendEmail" class="btn send-cancel">Send</button>
           <button @click="cancelSending" class="btn send-cancel">Cancel and Delete</button>
@@ -12,9 +12,14 @@ export default {
         <textarea v-model="email.body" placeholder="type your letter here..."></textarea>
         <!-- <div class="full-content">{{email.body}}</div> -->
       </div>
+      </div>
     `,
 
-  props: ['email'],
+  data() {
+    return {
+      email: null
+    }
+  },
 
   // data: ['email.body'],
 
@@ -50,6 +55,7 @@ export default {
       emailService.sendEmail(this.email)
       .then(res => {
         console.log('Sending Successful. server replied:',res);
+      this.$router.push('/email');
       })
       .catch(res => {
         console.log('Sending Failure. server replied:',res);

@@ -43,7 +43,7 @@ div {
 
 .list-item-container {
     background-color: wheat;
-    width: 250px;
+    width: 320px;
     height: 4em;
     padding: 0;
     margin-bottom: 4px;
@@ -77,13 +77,19 @@ div {
 
 }
 
+section.details {
+    width: 100%;
+}
+
 .details-container {
     background-color: yellowgreen;
+    height: 100%;
 }
 
 .details-top {
     background-color: chocolate;
     cursor: pointer;
+    min-height: 2em;
 }
 
 .details-top:hover {
@@ -158,7 +164,7 @@ div {
 background-color: red;
 }
 
-.btn-compose {
+.control-bar button {
     /* display: inline-block; */
     background: linear-gradient(#ccc, #eee, #ccc);
     border-radius: 2em;
@@ -166,6 +172,6 @@ background-color: red;
     cursor: pointer;
 }
 
-.btn-compose:hover{
+.control-bar button:hover{
     filter: invert(1);
 }

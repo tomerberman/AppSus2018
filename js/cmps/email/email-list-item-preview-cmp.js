@@ -1,20 +1,18 @@
 import emailService from '../../services/email-service.js'
-// import moment from '../../../lib/moment.js'
 
 export default {
   template: `
     <div @click="selectEmail" class="list-item-container flex">
-        <div class="list-item-icon" @click="markAsUnread">*</div>
-        <div v-if="email" :class="{bold:email.isRead}" class="list-item">{{email.subject}}</div>
+        <div class="list-item-icon" @click.stop="markAsUnread">*</div>
+        <div v-if="email" :class="{bold:!email.isRead}" class="list-item">{{email.subject}}</div>
         <div v-if="!email" class="list-item">NO_EMAIL LOADED</div>
-        <div v-if="email" class="list-item-time">{{dateAndTime()}}</div>
+        <div v-if="email" :class="{bold:!email.isRead}" class="list-item-time">{{dateAndTime()}}</div>
     </div>
     `,
 
-  props: ['email','viewMenu','dateAndTime'],
+  props: ['email'],
 
   created() {
-    this.viewMenu = false;
   },
 
   methods: {
@@ -25,14 +23,10 @@ export default {
     },
 
     selectEmail() {
-      console.log('item-preview, email props is :', this.email);
-      console.log('emitting id=', this.email.id);
       this.$emit('emailSelected', this.email.id);
     },
 
     markAsUnread() {
-        console.log('ITEM_PREVIEW markAsUnread');
-        
         emailService.markAsUnread(this.email.id);
     }
   }

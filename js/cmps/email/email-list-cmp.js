@@ -4,19 +4,19 @@ export default {
   template: `
     
     <div class="list-container flex-column">
-           <email-preview @emailSelected="emitSelected" :email="email" v-for="(email,idx) in emails" :key=idx></email-preview>
-           <email-preview></email-preview>
+           <email-preview @emailSelected="emitSelected" :email="email" v-for="(email,idx) in emailsToShow" :key=idx></email-preview>
     </div>
     `,
 
-    props: ['emails'],
+    props: ['emails','emailsToShow'],
 
     components: {
         emailPreview
     },
 
     created () {
-        // console.log('email-list Created! this.emails=',this.emails);
+        console.log('email-list Created! this.emails=',this.emails);
+        console.log('email-list Created! this.emailToShow=',this.emailsToShow);
     },
 
     methods : {
