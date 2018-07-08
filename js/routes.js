@@ -1,6 +1,5 @@
 import home from './pages/home.js'
 import email from './pages/email.js'
-// import keep from './pages/keep-cmp.js'
 import emailLarge from './pages/email-large.js'
 import compose from './pages/compose.js';
 import keep from './pages/keep-app-cmp.js'

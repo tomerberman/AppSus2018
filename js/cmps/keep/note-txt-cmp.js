@@ -4,17 +4,17 @@ import noteControls from './note-controls-cmp.js'
 export default {
     template: `
                 <section class="note">
-                <h1 v-if="currMode !== 'edit'"> {{title}} </h1>
-                <h1 v-if="currMode === 'edit'">
-                        <input type="text" v-model="note.data.title"/>
+                <h1 v-if="currMode !== 'edit' && currMode !== 'new'"> {{title}} </h1>
+                <h1 v-if="currMode === 'edit' || currMode === 'new'">
+                        <input type="text" v-model="note.data.title" placeholder="Enter title"/>
                 </h1>
 
                     <div class="content">
                         <p v-if="currMode === 'list' || currMode === 'preview'">
                          {{txt}}
                         </p> 
-                        <p v-if="currMode === 'edit'">
-                          <textarea v-model="note.data.txt"> </textarea>
+                        <p v-if="currMode === 'edit' || currMode === 'new'">
+                          <textarea v-model="note.data.txt" placeholder="Enter text"> </textarea>
                         </p>
                     </div>
 

@@ -11,7 +11,7 @@ export default {
         <h1>Keep</h1>
         
         <note-filter @filtered="setFilter"></note-filter>
-        <note-new></note-new>
+        <note-new ></note-new>
         <note-list :notes="notesToShow" @selected="selectNote"></note-list>
         
     </section>
@@ -46,6 +46,16 @@ export default {
             }),
             bus.$on('pinNote', noteId => {
                 console.log('book app pin note!', noteId);
+            }),
+            bus.$on('saveNotes', () => {
+                keepService.store();
+            }),
+            bus.$on('addNote', note => {
+                console.log('addNote', note);
+                keepService.addNote(note).then( () => {  
+                    // notesToShow();
+                    //this.$router.push(`/keep/`);
+                });
             })
     },
     computed: {

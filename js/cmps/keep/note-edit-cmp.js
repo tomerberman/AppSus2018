@@ -36,9 +36,9 @@ export default {
                     this.note = note;
                 });
         },
-        gotSrc() {
-               return this.note.data.hasOwnProperty('src');
-        }
+        // gotSrc() {
+        //        return this.note.data.hasOwnProperty('src');
+        // }
     },
     watch: {
         '$route.params.noteId': function (newNoteId) {
