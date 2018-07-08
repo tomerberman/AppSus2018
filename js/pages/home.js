@@ -6,8 +6,7 @@ export default {
         <h3>The best App + Sus on the web!</h3>
        <div class="box" @click="$router.push('/email')"> <i class="fab fa-mailchimp"></i> Email</div>
        <div class="box" @click="$router.push('/keep')"><i class="far fa-sticky-note"></i> Keep </div>
-
-    </section>
+       </section>
     `,
     data() {
         return {
@@ -21,6 +20,8 @@ export default {
             ]
         }
     },
+
+  
     methods: {
         changeCmp() {
             this.currView = (this.currView === 'say-hello')? 'user-profile' : 'say-hello'

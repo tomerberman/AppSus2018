@@ -1,6 +1,18 @@
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+#app {
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+}
+
+body {
+    display: flex;
+    background-color: rgb(243, 243, 243);
+    align-content: center;
 }
 
 div {
@@ -23,9 +35,49 @@ div {
 
 /* ============ END HELPERS ============== */
 
+.app-name {
+    font-family: 'Shrikhand', cursive;
+    color: #7997a1;
+    padding: 2px;
+    margin: 0;
+    margin-left: 12%;
+    font-size: 2em;
+    display: inline-block;
+    width: 200px;
+}
+
+.nav-bar-container {
+    background: linear-gradient(#eee, #ddd);
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+}
+
+a {
+    width: 60px;
+}
+
+.nav-bar {
+    justify-content: space-between;
+}
+
+.nav-bar-counter {
+    /* display : inline-block; */
+    /* float: left; */
+    background: #55e;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 20px;
+    padding-top: 8px;
+    margin: 0;
+}
+
 .outer-container {
-    display: block !important;
-    max-height: 500px;
+    max-height: 450px;
+    background: #ddd;
+    max-width: 900px;
+    align-content: center;
 }
 
 .email-list {
@@ -34,71 +86,82 @@ div {
 
 .inner-container {
     justify-content: space-between;
+    max-height: 450px;
 }
 
 .list-container {
-    background-color: slategray;
+    background-color: #ccc;
     display: inline-flex;
+    overflow: scroll;
+    min-width: 320px;
+
 }
 
 .list-item-container {
-    background-color: wheat;
-    width: 320px;
+    background-color: #ddd;
+    width: 290px;
     height: 4em;
+    min-height: 4em;
     padding: 0;
     margin-bottom: 4px;
     cursor: pointer;
 }
 
 .list-item-container:hover {
-    filter: invert(1);
+    filter: brightness(1.3);
+    transition-duration: 0.3s;
+
 }
 
 .list-item-icon {
-    background-color: aqua;
+    background-color: #cde;
     display: inline-block;
+    width: 30px;
 }
 
 .list-item {
-    background-color: cornflowerblue;
+    background-color: #d5e5f5;
     display: inline-block;
-    width: 100%;
+    width: 200px;
     overflow: hidden;
     padding-top: 2px;
     padding-bottom: 2px;
-    font-size: 0.95em;
+    font-size: 0.88em;
     line-height: 1em;
 }
 
 .list-item-time {
-    background-color: blueviolet;
+    background-color: #cde;
     display: inline-block;
-
-
+    font-size: 0.82em;
+    width: 80px;
 }
 
-section.details {
+.large-details {
     width: 100%;
 }
 
 .details-container {
-    background-color: yellowgreen;
+    background-color: #ccc;
     height: 100%;
+    max-width: 640px;
+    overflow-y: scroll;
 }
 
 .details-top {
-    background-color: chocolate;
+    background-color: #def;
     cursor: pointer;
-    min-height: 2em;
+    min-height: 2.6em;
+    font-size: 1.3em;
 }
 
 .details-top:hover {
-    filter: invert(1);
+    filter: brightness(1.3);
+    transition-duration: 0.3s;
 }
 
 .full-content {
-    background-color: blanchedalmond;
-    height: 100%;
+    background-color: #cde;
 }
 
 .email-status {
@@ -106,17 +169,18 @@ section.details {
 }
 
 .status-container {
-    background-color: red;
     justify-content: space-between;
+    background-color: #ddd;
 }
 
 .progress-container {
-    background-color: gray;
+    background-color: #ccc;
     width: 100%;
+    padding: 4px;
 }
 
 .progress-empty {
-    height: 20px;
+    height: 30px;
     width: 100%;
     border: 1px black solid;
     background-color: azure;
@@ -124,30 +188,49 @@ section.details {
 }
 
 .progress-filling {
-    height: 20px;
-    width: 41%;
+    height: 28;
     background-color: #333;
     padding: 0;
 }
 
 .progress-data {
-    background-color: aqua;
+    background-color: #ccc;
     width: 80px;
 }
 
 .prev-next-container {
+    padding: 0;
+}
+
+.details  {
+    width: 100%;
+    justify-content: space-between
+}
+
+.prev-next , .btn.delete , .back-to{
+    background: linear-gradient(#cde, #def, #cde);
+    border-radius: 2em;
+    height: 30px;
+    width: 140px;
+    cursor: pointer;
+}
+
+.details {
+    padding: 0;
+    height: 100%;
 }
 
 .prev-next {
-    /* display: inline-block; */
-    background: linear-gradient(#ccc, #eee, #ccc);
+    background: linear-gradient(#cde, #def, #cde);
     border-radius: 2em;
     width: 130px;
     cursor: pointer;
 }
 
-.prev-next:hover {
-    filter: invert(1);
+.prev-next:hover , .btn.delete:hover, .back-to:hover {
+    filter: brightness(1.1);
+    transition-duration: 0.2s;
+    font-weight: bold;
 }
 
 .item-menu {
@@ -156,7 +239,6 @@ section.details {
     transform: translate(210px,12px);
     width: 200px;
     padding: 3px;
-    /* height: 100px; */
     background-color: blue;
 }
 
@@ -165,13 +247,98 @@ background-color: red;
 }
 
 .control-bar button {
-    /* display: inline-block; */
-    background: linear-gradient(#ccc, #eee, #ccc);
+    background: linear-gradient(#cde, #def, #cde);
     border-radius: 2em;
-    width: 200px;
+    width: 190px;
     cursor: pointer;
 }
 
 .control-bar button:hover{
-    filter: invert(1);
+    filter: brightness(1.1);
+    transition-duration: 0.2s;
+    font-weight: bold;
+}
+
+.btn-details-delete {
+    position: relative;
+    transform: translate(20px,-50px);
+}
+
+ input.search {
+    width: 350px;
+    margin-left: 50px;
+    background-color: #def;
+    height: 1.7em;
+    font-size: 1.1em;
+}
+
+.radio-search {
+    padding-left: 8px;
+}
+
+.compose-body {
+    height: 400px;
+    background: linear-gradient(#eee,#ddd,#eee)
+}
+
+label {
+    cursor: pointer;
+}
+
+@media(max-width:680px) {
+
+    .inner-container , .outer-container {
+        max-height: 380px;
+    }
+
+    .nav-bar-counter {
+        display: inline-block;
+    }
+    .app-name {
+        font-size: 1.1em;
+    }
+
+    .list-container {
+        width: 100%;
+    }
+
+    .list-item-container {
+        width: 100%;
+    }
+
+    .list-item {
+        width: 100%;
+    }
+
+    .radio-search {
+        flex-flow: wrap;
+    }
+
+    * {
+        padding: 1px !important;
+        margin: 0 !important;
+    }
+
+    input.search {
+        margin-left: 2px;
+    }
+
+    .inner-container {
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+}
+
+@media(max-width:580) {
+    button {
+        max-width: 100px !important;
+        min-height: 50px !important;
+        font-size: 0.6em !important;
+    }
+
+    .prev-next-container.btn {
+        max-width: 100px;
+    }
+
 }

@@ -1,6 +1,6 @@
 export default {
   template: `
-    <section class="details">
+    <section class="large-details">
       <div v-if="email" class="details-container flex column">
             <div @click="fullScreenRead" class="details-top">{{email.subject}}</div>
             <div class="full-content">{{email.body}}</div>

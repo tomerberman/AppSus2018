@@ -43,7 +43,7 @@
 
 
    
-input.search{
+.keep-home input.search{
     width: 400px;
     height: 50px;
     background: #525252;
@@ -57,7 +57,7 @@ input.search{
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
 }
 
-input.search::-webkit-input-placeholder {
+.keep-home input.search::-webkit-input-placeholder {
     color: #Fe7F9c;
 }
 
@@ -198,14 +198,14 @@ input.search::-webkit-input-placeholder {
 
 
 
-.note input[type=text]{ 
+.keep-home .note input[type=text]{ 
     width: 80%;
 }
-.note .content textarea, .note-edit  textarea{ 
+.keep-home .note .content textarea, .keep-home .note-edit  textarea{ 
     width: 84%;
     min-height: 70px;
 }
-.note .content input[type=text],  textarea .content input[type=text]{ 
+.keep-home.note .content input[type=text],  .keep-home textarea .content input[type=text]{ 
     width: 87%;
 }
 
