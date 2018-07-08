@@ -1,4 +1,5 @@
 import emailService from '../../services/email-service.js'
+import bus from '../../services/event-bus.service.js'
 
 export default {
   template: `
@@ -28,6 +29,7 @@ export default {
 
     markAsUnread() {
         emailService.markAsUnread(this.email.id);
+        bus.$emit('unreadUpdated');
     }
   }
 };

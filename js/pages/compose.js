@@ -1,4 +1,5 @@
 import emailService from '../services/email-service.js';
+import bus from '../services/event-bus.service.js';
 
 export default {
   template: `
@@ -54,7 +55,8 @@ export default {
     sendEmail(){
       emailService.sendEmail(this.email)
       .then(res => {
-        console.log('Sending Successful. server replied:',res);
+      console.log('Sending Successful. server replied:',res);
+      bus.$emit('unreadUpdated');
       this.$router.push('/email');
       })
       .catch(res => {
@@ -63,8 +65,6 @@ export default {
     },
 
     cancelSending(){
-      console.log('cancelSendin invoked');
-      
       emailService.clearEmail(this.email.id);
       this.$router.push('/email');
     }

@@ -5,6 +5,8 @@ import emailService from '../services/email-service.js';
 import emailListItems from '../cmps/email/email-list-item-preview-cmp.js';
 import emailLarge from './email-large.js';
 import emailCompose from './compose.js';
+import bus from '../services/event-bus.service.js'
+
 
 export default {
   template: `
@@ -86,6 +88,8 @@ export default {
       emailService.getEmailById(id).then(res => {
         this.selected = res;
         emailService.markAsRead(id);
+        bus.$emit('unreadUpdated');
+
       });
     },
 

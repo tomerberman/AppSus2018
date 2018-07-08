@@ -1,5 +1,5 @@
 import emailService from '../services/email-service.js';
-import myRouter from '../routes.js';
+import bus from '../services/event-bus.service.js';
 
 export default {
   template: `
@@ -52,6 +52,8 @@ export default {
         this.$router.push(`${id}`);
         // route? router?
         emailService.markAsRead(id);
+        bus.$emit('unreadUpdated');
+
       });
     },
 
@@ -59,6 +61,7 @@ export default {
       emailService.getPrevEmailId(this.email.id).then(id => {
         this.$router.push(`${id}`);
         emailService.markAsRead(id);
+        bus.$emit('unreadUpdated');
         // route? router?
       });
     },

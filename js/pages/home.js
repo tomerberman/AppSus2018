@@ -1,6 +1,5 @@
-// Vue.component('say-hello', {
-//     template: `<section>HELLO</section>`
-// })
+import bus from '../services/event-bus.service.js'
+import emailService from '../services/email-service.js';
 
 export default {
     template:`
@@ -30,6 +29,8 @@ export default {
             ]
         }
     },
+
+  
     methods: {
         changeCmp() {
             this.currView = (this.currView === 'say-hello')? 'user-profile' : 'say-hello'
