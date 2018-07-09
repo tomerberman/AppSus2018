@@ -8,7 +8,7 @@ export default {
             <button v-if="currMode === 'list'" @click="editNote(note.id)" title="edit"> <i class="fas fa-pencil-alt" ></i></button>
             <button v-if="currMode === 'list'" @click="pinNote(note.id)" title="pin to starts"> <i class="fas fa-thumbtack"></i> </button>
             <button  v-if="currMode === 'list'" @click="previewNote(note.id)" title="preview"> <i class="fas fa-expand"></i> </button>
-            <button  v-if="currMode === 'edit'" @click="saveNotes()" title="save changes">save changes  <i class="far fa-save"></i></button>
+            <button  v-if="currMode === 'edit'" @click="saveNotes()" title="save changes" class="save-btn-control">save changes </button>
         </section>
     `,
     props: ['note', 'currMode'],

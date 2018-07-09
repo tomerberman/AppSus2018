@@ -16,7 +16,7 @@ export default {
                     <button v-if="note && newMode" @click="closeNew()" title="discard">discard</button>
                     <button v-if="note && newMode" @click="addNote()" title="save">save</button>
                 </div>
-                <component v-if="note && newMode" :is="note.noteType" :note="note" :curr-mode="'new'">
+                <component v-if="note && newMode" :is="note.noteType" :key="note.id" :note="note" :curr-mode="'new'">
                 </component> 
             
                 <div class="hr-divider"></div>

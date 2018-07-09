@@ -40,8 +40,8 @@ div {
     color: #7997a1;
     padding: 2px;
     margin: 0;
+    font-size: 2.4rem;
     margin-left: 12%;
-    font-size: 2em;
     display: inline-block;
     width: 200px;
 }
@@ -64,7 +64,7 @@ a {
 .nav-bar-counter {
     display : inline-block;
     /* float: left; */
-    background: #55e;
+    background: #9ac2cf;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -72,6 +72,8 @@ a {
     font-size: 13px;
     padding-top: 14px;
     margin: 0;
+    color: #445358;
+    font-weight: bold;
 }
 
 .outer-container {
@@ -218,7 +220,7 @@ a {
 
 .send-cancel-container button , button {
     background: linear-gradient(#cde, #def, #cde);
-    border-radius: 2em;
+    /* border-radius: 2em; */
     min-height: 30px;
     max-width: 140px;
     cursor: pointer;
