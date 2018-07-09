@@ -75,7 +75,7 @@ function query() {
             { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'note 2', txt: 'text for display 2' } },
             { noteType: 'note-img', id: utilService.makeId(6), data: { title: 'note imf 1', src: '../../img/1.jpg' } },
             { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'note 1', txt: 'text for display 1' } },
-            { noteType: 'note-audio', id: utilService.makeId(6), data: { title: 'note audio 1', src: '../../sound/Kalimba.mp3' } }
+            { noteType: 'note-audio', id: utilService.makeId(6), data: { title: 'note audio 1', src: '../../sound/kalimba.mp3' } }
         ];
     }
     return Promise.resolve(notes);
