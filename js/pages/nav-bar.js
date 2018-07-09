@@ -5,7 +5,7 @@ export default {
   template: `
     <div class="nav-bar-container flex column">
       <div class="nav-bar flex">
-        <div v-if="unreadStatus.unread > 0" class="nav-bar-counter">New {{unreadStatus.unread}}</div>
+        <div v-if="unreadStatus.unread > 0" class="nav-bar-counter">New<br> {{unreadStatus.unread}}</div>
         <div class="app-name">App-sus</div>
         <div class="routing-links flex">
             <router-link exact to="/">Home</router-link> |

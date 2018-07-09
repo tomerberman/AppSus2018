@@ -210,8 +210,8 @@ a {
 .prev-next , .btn.delete , .back-to{
     background: linear-gradient(#cde, #def, #cde);
     border-radius: 2em;
-    height: 30px;
-    width: 140px;
+    min-height: 30px;
+    max-width: 140px;
     cursor: pointer;
 }
 
@@ -223,7 +223,7 @@ a {
 .prev-next {
     background: linear-gradient(#cde, #def, #cde);
     border-radius: 2em;
-    width: 130px;
+    /* width: 130px; */
     cursor: pointer;
 }
 
@@ -339,6 +339,14 @@ label {
 
     .prev-next-container.btn {
         max-width: 100px;
+    }
+
+    button.prev-next {
+        width: auto;
+    }
+
+    .btn.delete {
+        width: auto;
     }
 
 }
