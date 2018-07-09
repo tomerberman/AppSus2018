@@ -72,10 +72,10 @@ function query() {
     notes = storageService.load(NOTES_KEY);
     if (!notes || notes.length === 0) {
         notes = [
-            { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'note 2', txt: 'text for display 2' } },
-            { noteType: 'note-img', id: utilService.makeId(6), data: { title: 'note imf 1', src: 'img/1.jpg' } },
-            { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'note 1', txt: 'text for display 1' } },
-            { noteType: 'note-audio', id: utilService.makeId(6), data: { title: 'note audio 1', src: 'sound/kalimba.mp3' } }
+            { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'sprint 3', txt: 'finish sprint 3' } },
+            { noteType: 'note-img', id: utilService.makeId(6), data: { title: 'fun reading', src: './img/1.jpg' } },
+            { noteType: 'note-txt', id: utilService.makeId(6), data: { title: 'movie night', txt: 'after the course' } },
+            { noteType: 'note-audio', id: utilService.makeId(6), data: { title: 'note audio 1', src: './sound/kalimba.mp3' } }
         ];
     }
     return Promise.resolve(notes);
