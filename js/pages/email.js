@@ -106,6 +106,8 @@ export default {
     selectEmail(id) {
       var isSmall = window.innerWidth < 680;
       if (isSmall) {
+        emailService.markAsRead(id);
+        bus.$emit('unreadUpdated');
         this.$router.push(`/email/large/${id}`);
       } else {
         emailService.getEmailById(id).then(res => {

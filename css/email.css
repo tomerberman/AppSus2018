@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #app {
@@ -62,14 +62,15 @@ a {
 }
 
 .nav-bar-counter {
-    /* display : inline-block; */
+    display : inline-block;
     /* float: left; */
     background: #55e;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    line-height: 20px;
-    padding-top: 8px;
+    line-height: 15px;
+    font-size: 13px;
+    padding-top: 14px;
     margin: 0;
 }
 
@@ -144,7 +145,7 @@ a {
 .details-container {
     background-color: #ccc;
     height: 100%;
-    max-width: 640px;
+    /* max-width: 640px; */
     overflow-y: scroll;
 }
 
@@ -207,7 +208,23 @@ a {
     justify-content: space-between
 }
 
-.prev-next , .btn.delete , .back-to{
+.prev-next , .btn.delete , .back-to , {
+    background: linear-gradient(#cde, #def, #cde);
+    border-radius: 2em;
+    min-height: 30px;
+    max-width: 140px;
+    cursor: pointer;
+}
+
+.send-cancel-container button , button {
+    background: linear-gradient(#cde, #def, #cde);
+    border-radius: 2em;
+    min-height: 30px;
+    max-width: 140px;
+    cursor: pointer;
+}
+
+.control-bar button {
     background: linear-gradient(#cde, #def, #cde);
     border-radius: 2em;
     min-height: 30px;
@@ -223,7 +240,6 @@ a {
 .prev-next {
     background: linear-gradient(#cde, #def, #cde);
     border-radius: 2em;
-    /* width: 130px; */
     cursor: pointer;
 }
 
@@ -278,7 +294,8 @@ background-color: red;
 
 .compose-body {
     height: 400px;
-    background: linear-gradient(#eee,#ddd,#eee)
+    background: linear-gradient(#eee,#ddd,#eee);
+    font-size: 1.1em;
 }
 
 label {
@@ -293,6 +310,8 @@ label {
 
     .nav-bar-counter {
         display: inline-block;
+        min-width: 50px;
+        padding-top: 24px;
     }
     .app-name {
         font-size: 1.1em;
